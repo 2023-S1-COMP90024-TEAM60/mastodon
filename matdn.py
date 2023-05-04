@@ -51,7 +51,7 @@ def main():
     )
 
     # start mastodon listener
-    m.stream_public(Listener(db))
+    m.stream_public(Listener(db), local=True)
 
 
 if __name__ == "__main__":

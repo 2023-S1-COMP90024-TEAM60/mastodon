@@ -3,7 +3,12 @@
 source: 
 `https://gitlab.unimelb.edu.au/feit-comp90024/comp90024/-/tree/master/ado`
 
-install `requests` and `couchdb` packages:
+## Installation
+install `requests`, `couchdb`, `Mastodon.py` packages:
 `pip install <package name>`
 
-python3 matdn.py
+## Execution
+`python3 matdn.py --mastodon_server_url <server_url> --mastodon_access_token <access_token> --couchdb_endpoint <couchdb_endpoint> --couchdb_database <couchdb_database>`
+<br>
+
+Example: `python3 matdn.py --mastodon_server_url https://mastodon.social --mastodon_access_token access_token --couchdb_endpoint http://admin:password@172.26.136.78:5984/ --couchdb_database mastodon`

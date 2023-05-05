@@ -6,13 +6,16 @@ import argparse
 
 class Listener(StreamListener):
 
-    def __init__(self, db) -> None:
+    def __init__(self, db, server_tag) -> None:
         super().__init__()
         self.db = db
+        self.server_tag = server_tag
 
     def on_update(self, status):
         json_str = json.dumps(status, indent=2, sort_keys=True, default=str)
-        self.db.save(json.loads(json_str))
+        record = json.loads(json_str)
+        record["server_tag"] = self.server_tag
+        self.db.save(record)
 
 
 def main():
@@ -25,6 +28,9 @@ def main():
     )
     parser.add_argument(
         "--mastodon_access_token", type=str, help="Mastodon access token"
+    )
+    parser.add_argument(
+        "--mastodon_server_tag", type=str, help="Mastodon access token"
     )
 
     parser.add_argument(
@@ -51,7 +57,7 @@ def main():
     )
 
     # start mastodon listener
-    m.stream_public(Listener(db), local=True)
+    m.stream_public(Listener(db, args.mastodon_server_tag), local=True)
 
 
 if __name__ == "__main__":

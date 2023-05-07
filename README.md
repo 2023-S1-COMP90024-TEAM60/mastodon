@@ -29,3 +29,7 @@ Access Token: `3B1DDxH16m0xToXpX0RX0e6wBwIpGzyoQrNBOjEgGkA`<br>
 Technology Server: <br>
 URL: `https://fosstodon.org`<br>
 Access Token: `mksdEDsjhK_k4UeADLI6pKZ628i8ei2br8uYGL75GNY`<br>
+
+E-Sports Server: <br>
+URL: `https://mstdn.games`<br>
+Access Token: `_bDlKzNrFnYzCLzUV1T2G1r2WvO_aNx_YXkykHQ4wyc`<br>

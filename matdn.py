@@ -2,6 +2,23 @@ from mastodon import Mastodon, StreamListener
 import json
 import couchdb
 import argparse
+import os
+
+username_file = os.environ.get('COUCHDB_USERNAME_FILE')
+password_file = os.environ.get('COUCHDB_PASSWORD_FILE')
+
+with open(username_file, 'r') as f:
+    admin = f.read().strip()
+
+with open(password_file, 'r') as f:
+    password = f.read().strip()
+
+couchdb_ip = os.environ.get('COUCHDB_IP')
+couchdb_port = os.environ.get('COUCHDB_PORT')
+
+url = f'http://{admin}:{password}@{couchdb_ip}:{couchdb_port}/'
+
+couch = couchdb.Server(url)
 
 
 class Listener(StreamListener):
@@ -32,10 +49,6 @@ def main():
     parser.add_argument(
         "--mastodon_server_tag", type=str, help="Mastodon access token"
     )
-
-    parser.add_argument(
-        "--couchdb_endpoint", type=str, help="CouchDB endpoint"
-    )
     parser.add_argument(
         "--couchdb_database", type=str, help="CouchDB database to store data", default="mastodon"
     )
@@ -43,8 +56,6 @@ def main():
     args = parser.parse_args()
 
     # initiate database
-    url = args.couchdb_endpoint
-    couch = couchdb.Server(url)
     database = args.couchdb_database
     if database not in couch:
         couch.create(database)
